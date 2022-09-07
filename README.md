@@ -1,55 +1,61 @@
+# How to run
+```
+docker-compose up -d
+```
 
-# Lab 5 - Spring Security
+### Sign in
 
-You can continue to your last lab assignment to add security with `JWT` to your project.
+```shell
+curl -v -X POST -H "Content-Type: application/json" -d '{"username":"admin@miu.edu", "password":"admin"}'  http://localhost:8080/api/uaa/signin 
+```
 
-###  Requirements
---- 
-* There are two roles `admin` and `user`.
-	* `admin` can access all endpoints.
-	*  `user` can access only `/products` endpoint.
-* Use `UserDetailsService` to load the user from the database.
-* Create `UaaController` to implement `signin` and `signup` endpoints.
-* Make necessary changes to set `user_id` in `product` with the current request holder's user id when `saveProducts` is invoked.
-	* You can access the current request holder via `SecurityContextHolder`.
-* Generated token should be valid for 15 minutes. 
-* Use `AOP` to filter out any offensive words.
-	* You can use any kind of offensive words dictionary or you can even create one for testing.
-	* Assuming `spring` is an offensive word and if the input is : `springing`, it should be filtered out as `******ing`.
-		* Create `WaaOffensiveWords` aspect.
-	* If the same user sends more than 5 different requests that contain offensive words in last 30 minutes, do not accept the requests of this user for next 15 minutes and return the error message `Max Bad Words Requests Limit has been Reached. You need wait for X minutes.` Change `X` with remaining time of the ban.
-		* This implementation should be `stateless`. You cannot hold any data in the server's memory. You can design table/tables to implement this feature.
-		* To practice further (optional), you can use `redis` instead of using `PostgreSQL`.
-		* Create `WaaRequestFilter` aspect.
-* Continue to your UI project and implement `signin` and `signup` functionality.
-* Make necessary changes in your UI project to communicate with backend server.
-	* Send the token in each request except for `signin` and `signup` functions.
-	* You can store the token in the`localStorage`.
-### Technical Details
----
-* Use n-tier software architecture model.
-* Use DTOs.
-* PostgreSQL is recommended as a Relational Database system.
-* Populate your database with dummy data using `data.sql`.
+### Start batch
+
+```shell
+export TOKEN=${access_token}
+curl -v -H "Content-Type: application/json" -H "Authorization: Bearer ${TOKEN}" http://localhost:8080/api/data/batch
+```
+
+# Instructions
+
+Objective: Get you up to speed with some technologies you’ll need in this class to successfully build cloud native microservices solutions.
 
 
-## Submission
 
-* Fork this repository and push your changes.
-* Once you finished your project, send a Pull Request. (Send only one Pull Request once you finish the assignment.)
+Feel free to discuss Ideas but refrain from sharing implementations. Violating honor code is not allowed.
 
-### Important Notes
----
+###  Task:
 
- * You are not allowed to share codes with your classmates. If detected, you will get NC.
- * **For pairs:**
-	 * Individual's work will be checked from the commits.
-	 *  Share tasks evenly and fairly.
-	 *  To have a clearer understanding of pair programming:
-		 *  > **Pair programming** is an agile software development technique in which two programmers work together at one workstation. One, the _driver_, writes code while the other, the _observer_ or _navigator_ reviews each line of code as it is typed in. The two programmers switch roles frequently. 
-		 * [Wikipedia](https://en.wikipedia.org/wiki/Pair_programming#:~:text=Pair%20programming%20is%20an%20agile,two%20programmers%20switch%20roles%20frequently.)
+Implement a Restful service allowing an admin to trigger a batch job.
 
--   Remember to respect the code honor submission policy. All written code must be original. Presenting something as one’s own work when it came from another source is plagiarism and is forbidden.
-    
--   Plagiarism is a very serious thing in all American academic institutions and is guarded against vigilantly by every professor.
+The batch job , reads a CSV file and writes its contents into Mysql DB after performing some conversion.
 
+### CSV file format:
+
+First , last , GPA , AGE
+
+String, String,Double, INT>0
+
+### Database table format:
+
+First , last , GPA , DOB
+
+String, String,Double, Date ( first day of the year)
+
+### Deliverable:
+
+- You service should implement security, only admin can access it
+
+- Your batch will be executed once , feel free to remove DB contents every time your app starts
+
+- Docker your solution along with README.md file to explain how to run it
+
+### Hints:
+
+- Spring MVC/Restful , ORM , Spring security ( optionally with JWT tokens)
+
+- Spring Batch
+
+- Docker and usage of docker-compose. Don’t create DB image , use docker hub
+
+- Upload only source code files , put your CSV  file inside your  app image
