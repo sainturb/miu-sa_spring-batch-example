@@ -3,6 +3,12 @@
 docker-compose up -d
 ```
 
+### Use API interface
+
+```shell
+Use "request.http" file in the project
+```
+
 ### Sign in
 
 ```shell
