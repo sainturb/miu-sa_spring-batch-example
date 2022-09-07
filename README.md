@@ -1,4 +1,7 @@
 # How to run
+
+It may take minutes, because stages of building jar file using Dockerfile will install all the maven dependencies. 
+
 ```
 docker-compose up -d
 ```
@@ -20,6 +23,16 @@ curl -v -X POST -H "Content-Type: application/json" -d '{"username":"admin@miu.e
 ```shell
 export TOKEN=${access_token}
 curl -v -H "Content-Type: application/json" -H "Authorization: Bearer ${TOKEN}" http://localhost:8080/api/data/batch
+```
+
+### DB connection
+
+```shell
+database: postgres
+username: postgres
+password: postgres
+port: 5432
+connection: jdbc:postgresql://localhost:5432/postgres
 ```
 
 # Instructions

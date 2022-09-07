@@ -31,8 +31,9 @@ public class DataController {
     private final Job importData;
 
     @GetMapping("batch")
-    public void startBatch() throws JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException, JobParametersInvalidException {
+    public String startBatch() throws JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException, JobParametersInvalidException {
         jobLauncher.run(importData,new JobParameters(new HashMap<>()));
+        return "successfully run batch";
     }
 
 

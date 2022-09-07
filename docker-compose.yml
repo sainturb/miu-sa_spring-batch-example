@@ -1,14 +1,25 @@
 version: '3'
 
 services:
+  service:
+    container_name: service
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    ports:
+      - 8080:8080
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/postgres
+    depends_on:
+      - db
   db:
     image: postgres
-    container_name: cs545_db_security
+    container_name: db
     restart: always
     ports:
       - 5432:5432
     environment:
       PGDATA: /var/lib/postgresql/data/pgdata
-      POSTGRES_DB: lab05
+      POSTGRES_DB: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
