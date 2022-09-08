@@ -1,4 +1,9 @@
-# How to run
+## Assignment 1
+
+- Saintur Batkhuu
+- Sumayya Jahan
+- Yumjirdulam Chinbat
+## How to run
 
 It may take minutes, because stages of building jar file using Dockerfile will install all the maven dependencies. 
 
@@ -24,6 +29,16 @@ curl -v -X POST -H "Content-Type: application/json" -d '{"username":"admin@miu.e
 export TOKEN=${access_token}
 curl -v -H "Content-Type: application/json" -H "Authorization: Bearer ${TOKEN}" http://localhost:8080/api/data/batch
 ```
+
+### CSV Content
+
+S,S,3.4,30
+
+A,A,4.0,28
+
+### After Batch Data table result
+
+![alt text](result.png)
 
 ### DB connection
 
