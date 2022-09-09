@@ -3,6 +3,7 @@
 - Saintur Batkhuu
 - Sumayya Jahan
 - Yumjirdulam Chinbat
+- Samreth Kem
 ## How to run
 
 It may take minutes, because stages of building jar file using Dockerfile will install all the maven dependencies. 
